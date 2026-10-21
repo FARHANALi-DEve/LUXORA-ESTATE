@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>LUXORA / Interactive 3D Architectural Preview</title><style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:#0d211c;color:#f4f0e5;font-family:'DM Sans',sans-serif;overflow:hidden}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #d9c395;outline-offset:3px}
+.site{position:relative;min-height:100dvh;background:radial-gradient(circle at 72% 45%,#8a9b91 0%,#4b665b 42%,#132820 100%);overflow:hidden}
+#world{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}#world:active{cursor:grabbing}
+.tint{position:absolute;inset:0;background:linear-gradient(90deg,#0b1d1bea 0%,#0b231fd8 30%,#10291d20 66%),linear-gradient(0deg,#091a19ad,transparent 27%,#071d1a72);pointer-events:none}
+header{position:absolute;left:5%;right:5%;top:32px;display:flex;align-items:center;justify-content:space-between;z-index:3} .logo{font:28px Georgia,serif;letter-spacing:.14em}.logo small{font:700 7px Arial;display:block;letter-spacing:.53em;text-align:center;margin-top:7px}.header-right{font-size:10px;letter-spacing:.24em;color:#e3d9c8}
+.maincopy{position:absolute;z-index:2;left:7%;top:31%;max-width:620px;pointer-events:none}.eyebrow{font-size:10px;letter-spacing:.22em;font-weight:700;display:flex;align-items:center;gap:12px}.eyebrow:before{content:'';display:block;width:29px;height:1px;background:#d2bb8a}h1{font:400 clamp(65px,8vw,136px)/1.04 Georgia,serif;letter-spacing:-.065em;margin:25px 0}h1 em{font-style:italic;font-weight:400}.maincopy p{font-size:13px;line-height:1.85;max-width:350px;color:#d1dcd1}
+.topright{position:absolute;right:5%;top:128px;font-size:9px;letter-spacing:.18em;color:#fff;z-index:3;text-align:right}.topright strong{display:block;font-size:27px;font-weight:400;letter-spacing:.06em;margin-top:10px}
+.controls{position:absolute;z-index:4;right:5%;bottom:11%;display:flex;flex-direction:column;gap:7px;width:200px}.controls button{min-height:46px;display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:#1a3029dc;color:#fff;border:1px solid #f2eddc88;font-size:10px;font-weight:700;letter-spacing:.08em;transition:background .2s,transform .2s}.controls button:hover,.controls button[aria-pressed="true"]{background:#e8dfcb;color:#1c3327;transform:translateX(-3px)}.controls button span:last-child{font-size:19px;font-weight:400}.controls button{overflow:visible}
+.bottom{position:absolute;z-index:3;bottom:32px;left:5%;right:5%;display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:9px;letter-spacing:.16em;font-weight:700}.bottom span:nth-child(2){color:#c1cebf}.tour-stops{position:absolute;right:5%;top:30%;z-index:4;width:206px;display:flex;flex-direction:column;gap:5px}.tour-stops button{border:1px solid #fbf7e248;background:#162c27da;color:#e7ece3;padding:10px 12px;min-height:41px;text-align:left;letter-spacing:.09em;font-size:10px;font-weight:700;backdrop-filter:blur(10px)}.tour-stops button:hover,.tour-stops button[aria-pressed='true']{background:#e7dec9;color:#1c3428}.dot{display:inline-block;background:#a9cdb1;width:7px;height:7px;border-radius:50%;margin-right:12px;box-shadow:0 0 0 5px #b1d6ba2d}.notice{position:absolute;z-index:3;right:5%;top:26%;padding:12px 16px;border-left:2px solid #d9c39e;background:#11241f90;font-size:11px;letter-spacing:.02em;max-width:270px;line-height:1.7;left:7%;right:auto;top:auto;bottom:110px}
+@media(max-width:750px){.tour-stops{top:auto;bottom:154px;right:12px;left:12px;width:auto;display:flex;flex-direction:row;gap:4px;overflow-x:auto;padding-bottom:4px}.tour-stops button{font-size:8px;min-width:101px;min-height:39px;text-align:center;padding:6px}.controls{bottom:67px!important;grid-template-columns:repeat(5,1fr)!important}.notice{display:none!important}header{top:22px}.logo{font-size:21px}.header-right{font-size:7px}.maincopy{left:6%;top:20%}.maincopy h1{font-size:clamp(55px,13vw,85px);margin:17px 0}.maincopy p{max-width:250px;font-size:11px}.topright{top:98px;font-size:8px}.topright strong{font-size:17px}.tint{background:linear-gradient(180deg,#10251ddd 0%,#172b2573 43%,transparent 60%,#091b19c9 93%)}.controls{width:auto;right:15px;left:15px;bottom:68px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.controls button{font-size:7px;padding:8px 3px;min-height:52px;flex-direction:column;gap:3px;justify-content:center;text-align:center}.controls button span:last-child{font-size:14px}.notice{top:auto;bottom:136px;right:15px;left:auto;max-width:220px;font-size:9px;padding:8px}.bottom{bottom:20px;font-size:7px}.bottom span:nth-child(2){display:none}}
+</style></head><body><main class="site"><canvas id="world" aria-label="Rotating 3D villa, rendered live in WebGL"></canvas><div class="tint"></div><header><div class="logo">LUXORA<small>E S T A T E</small></div><div class="header-right">THE ART OF THREE DIMENSIONS / 001</div></header><div class="maincopy"><div class="eyebrow">LIVE / IMMERSIVE ARCHITECTURAL WORLD</div><h1>A new<br/><em>dimension.</em></h1><p>Not a picture. Not a CSS illusion. Drag to rotate the model, click to open the floors, or step right inside the lounge and suite.</p></div><div class="topright">ARCHITECTURAL STUDY<strong>01 / 01</strong></div><nav class="tour-stops" aria-label="3D camera destinations"><button data-view="aerial" aria-pressed="true">01 / Aerial</button><button data-view="facade" aria-pressed="false">02 / Front elevation</button><button data-view="pool" aria-pressed="false">03 / Poolside</button><button data-view="lounge" aria-pressed="false">04 / Inside lounge</button><button data-view="suite" aria-pressed="false">05 / Inside suite</button><button data-view="terrace" aria-pressed="false">06 / Terrace</button></nav><div class="notice" id="status" role="status"><span class="dot"></span>LIVE WEBGL · DRAG TO ORBIT</div><div class="controls" role="group" aria-label="3D controls"><button id="explode" aria-pressed="false">OPEN FLOORS <span>↗</span></button><button id="facade" aria-pressed="false">FRONT VIEW <span>↗</span></button><button id="night" aria-pressed="false">NIGHT MODE <span>☾</span></button><button id="walk">WALK INSIDE <span>→</span></button><button id="reset">RESET VIEW <span>↻</span></button></div><div class="bottom"><span>FARHAN ALI — DIGITAL ARCHITECTURAL EXPERIENCE</span><span>MOVE THROUGH SPACE, NOT SLIDES</span><span>INTERACTIVE 3D / 2026</span></div></main>
+<script>
+// Standalone zero-dependency WebGL proof. The Next.js project includes a more detailed
+// React Three Fiber model with independent floor selection, cinematic cameras & UI.
+(()=>{
+const canvas=document.getElementById('world'),status=document.getElementById('status');
+const gl=canvas.getContext('webgl',{antialias:true,alpha:true})||canvas.getContext('experimental-webgl');
+if(!gl){status.textContent='WebGL is unavailable on this device. Please open in a WebGL-compatible browser.';return;}
+const vertex=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uMVP;uniform vec3 uColor;uniform float uNight;varying vec3 vColor;varying float vLight;void main(){gl_Position=uMVP*vec4(aPosition,1.0);float lambert=max(dot(normalize(aNormal),normalize(vec3(-0.48,1.0,0.7))),0.0);vLight=0.45+0.55*lambert;vColor=uColor;}`;
+const fragment=`precision mediump float;varying vec3 vColor;varying float vLight;uniform float uAlpha;uniform float uNight;void main(){vec3 lit=vColor*mix(vLight,.29+.42*vLight,uNight);gl_FragColor=vec4(lit,uAlpha);}`;
+function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
+const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+const locations={position:gl.getAttribLocation(program,'aPosition'),normal:gl.getAttribLocation(program,'aNormal'),mvp:gl.getUniformLocation(program,'uMVP'),color:gl.getUniformLocation(program,'uColor'),alpha:gl.getUniformLocation(program,'uAlpha'),night:gl.getUniformLocation(program,'uNight')};
+const p=[],n=[],q=[ [[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],[ [1,-1,-1],[-1,-1,-1],[-1,1,-1],[1,1,-1]],[[-1,1,1],[1,1,1],[1,1,-1],[-1,1,-1]],[[-1,-1,-1],[1,-1,-1],[1,-1,1],[-1,-1,1]],[[1,-1,1],[1,-1,-1],[1,1,-1],[1,1,1]],[[-1,-1,-1],[-1,-1,1],[-1,1,1],[-1,1,-1]] ];
+const normal=[[0,0,1],[0,0,-1],[0,1,0],[0,-1,0],[1,0,0],[-1,0,0]];
+q.forEach((corners,i)=>[0,1,2,0,2,3].forEach(j=>{p.push(...corners[j]);n.push(...normal[i]);}));
+function buffer(data,attr){const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(attr);gl.vertexAttribPointer(attr,3,gl.FLOAT,false,0,0)}buffer(p,locations.position);buffer(n,locations.normal);
+function mult(a,b){const o=new Float32Array(16);for(let col=0;col<4;col++)for(let row=0;row<4;row++)for(let k=0;k<4;k++)o[col*4+row]+=a[k*4+row]*b[col*4+k];return o}
+function trans(x,y,z){return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1])}function scale(x,y,z){return new Float32Array([x,0,0,0,0,y,0,0,0,0,z,0,0,0,0,1])}
+function persp(fov,aspect,near,far){const f=1/Math.tan(fov/2),v=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*v,-1,0,0,2*far*near*v,0])}
+function norm(v){const l=Math.hypot(...v);return v.map(x=>x/l)}function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]]}
+function lookAt(eye,t){const z=norm(eye.map((v,i)=>v-t[i])),x=norm(cross([0,1,0],z)),y=cross(z,x);return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-x.reduce((v,w,i)=>v+w*eye[i],0),-y.reduce((v,w,i)=>v+w*eye[i],0),-z.reduce((v,w,i)=>v+w*eye[i],0),1])}
+const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255),opaque=[],glass=[];
+function box(x,y,z,w,h,d,color,layer='base',opacity=1){(opacity<1?glass:opaque).push({x,y,z,w,h,d,color:rgb(color),layer,opacity})}
+box(0,-.4,0,17,.8,12,'#728774');box(0,-.02,4.25,15,.11,3.5,'#c7bbaa');box(0,.01,-.5,11,.16,6.9,'#d8d1c2');
+// Lower level: structural slab, supporting masonry, and floor-to-ceiling glazing.
+box(0,.12,-.8,10.8,.23,6.5,'#e5decf');box(0,2.95,-.8,11,.22,6.6,'#f4eee1','lowerroof');
+box(-5.3,1.5,-1.0,.28,2.78,6.3,'#e8e3d5');box(5.3,1.5,-1.0,.28,2.78,6.3,'#e8e3d5');box(0,1.54,-3.85,10.7,2.8,.25,'#c4b9a6');
+box(-.9,1.5,1.32,8.7,2.45,.07,'#8bb8b5','lowerfront',.58);
+for(let i=0;i<9;i++)box(-5.0+i*1.05,1.5,1.4,.06,2.45,.12,'#263735','lowerfront');
+box(3.9,1.5,1.46,.15,2.5,.25,'#394441','lowerfront');box(4.7,1.5,1.47,1,2.5,.22,'#947251','lowerfront');
+for(let i=0;i<11;i++)box(4.2+i*.09,1.5,1.62,.038,2.37,.09,'#c1a27d','lowerfront');
+// Lower floor furniture visible through the glass.
+box(-2.2,.52,-1.45,2.35,.45,.75,'#bdab91');box(-2.2,.8,-1.83,2.35,.7,.20,'#ac987d');box(-.1,.35,-1,1.15,.15,.75,'#805b42');
+box(2.6,.4,-1.8,1.7,.75,.67,'#8b735c');
+// Upper suspended storey and glass curtain wall. The roof separates independently.
+box(-.2,3.13,-.95,10.3,.23,5.8,'#e2d9c9','upper');
+box(-5.26,4.28,-.95,.24,2.35,5.85,'#e9e3d7','upper');box(4.87,4.28,-.95,.24,2.35,5.85,'#e9e3d7','upper');box(-.2,4.25,-3.75,10.2,2.34,.21,'#d1c6b2','upper');
+box(-.3,4.35,1.98,9.7,1.98,.07,'#84b1aa','upperfront',.55);
+for(let i=0;i<=9;i++)box(-4.98+i*1.08,4.32,2.05,.065,2,.12,'#35423b','upperfront');
+box(2.55,4.29,2.18,3.9,2.19,.2,'#6e5e49','upperfront');for(let i=0;i<22;i++)box(.7+i*.16,4.28,2.34,.035,2.12,.07,'#9b7959','upperfront');
+box(-.25,3.21,2.5,10,.12,.85,'#efe8dc','upperfront');box(-.35,3.75,2.93,9.6,1.03,.055,'#a0c6bb','upperfront',.35);
+box(-.35,4.26,2.99,9.6,.055,.07,'#68776d','upperfront');
+box(-2.6,3.45,-1.5,2.8,.3,1.85,'#c3b092','upper');box(-2.6,3.85,-2.25,2.8,.56,.24,'#b9a38a','upper');box(1.5,3.38,-1.5,2.25,.7,1.1,'#a8957e','upper');
+box(-.2,5.63,-.97,10.9,.34,6.3,'#f5ede0','roof');box(-.2,5.83,-.97,11.1,.11,6.5,'#d6ccbd','roof');box(3.5,5.94,-1,2.2,.11,3,'#354d48','roof');
+// Terrace, outdoor furniture, pool, garden trees and planters.
+box(2.0,.11,4,8,.14,2.7,'#f3e6d3');box(2.0,.18,4,7.7,.14,2.4,'#215e68');box(2.0,.265,4,7.5,.024,2.28,'#47a7b0','base',.87);
+for(let i=0;i<8;i++)box(-7.5+i*.47,.1,4.0,.36,.16,2,'#d7cbb7');
+for(const x of [-5.2,-3.7]){box(x,.3,3.35,1.28,.16,2.0,'#e8dfd1');box(x,.35,4.12,1.3,.31,.2,'#a6a99e');}
+for(const [x,z] of [[-6.7,-3.4],[6.7,-3.5],[7.1,2.3]]){box(x,.12,z,.8,.25,.8,'#b5aa97');box(x,.78,z,.16,1,.16,'#65503b');for(const [dx,dy,dz,s] of [[-.2,1.45,0,.7],[.3,1.5,.15,.6],[0,1.8,0,.72]])box(x+dx,dy,z+dz,s,s,s,'#4e7556');}
+// A planar grounding strip, visually echoes the site section cut.
+box(0,-.82,0,17.4,.2,12.4,'#c6baa1');
+const stops={
+ aerial:{eye:[13,10.2,16.5],target:[0,2.3,0]},
+ facade:{eye:[2.2,4.7,18],target:[0,2.5,0]},
+ pool:{eye:[10.5,3.6,11.5],target:[1,1,2.1]},
+ lounge:{eye:[-.7,1.68,.52],target:[-.9,1.55,-2.8]},
+ suite:{eye:[-2.05,4.2,.45],target:[-2.6,4,-2.4]},
+ terrace:{eye:[3.4,4,5.7],target:[-.6,3.8,1.4]}
+};
+let width=0,height=0,yaw=.6,pitch=.3,radius=25,explode=0,targetExplode=0,night=0,nightGoal=0,facade=false,drag=false,px=0,py=0,view='aerial',moving=false;
+let center=[0,2.4,0],dest={yaw,pitch,radius,center:[0,2.4,0]};
+function setView(id){
+ if(!stops[id])return;
+ const p=stops[id],d=p.eye.map((n,i)=>n-p.target[i]);
+ dest={yaw:Math.atan2(d[0],d[2]),pitch:Math.asin(d[1]/Math.hypot(...d)),radius:Math.hypot(...d),center:[...p.target]};moving=true;view=id;facade=id==='facade';
+ document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===id)));
+ if(id==='lounge'||id==='suite'){targetExplode=0;document.getElementById('explode').setAttribute('aria-pressed','false');document.getElementById('explode').firstChild.textContent='OPEN FLOORS ';}
+ info(id==='lounge'||id==='suite'?'YOU ARE INSIDE THE ARCHITECTURE · DRAG TO LOOK AROUND':`CAMERA ${id.toUpperCase()} · DRAG TO ORBIT`);
+}
+function resize(){const dpr=Math.min(devicePixelRatio||1,1.65);width=Math.floor(canvas.clientWidth*dpr);height=Math.floor(canvas.clientHeight*dpr);if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}gl.viewport(0,0,width,height)}
+function draw(b,vp){const off=['upper','upperfront'].includes(b.layer)?explode*2.1:b.layer==='roof'?explode*4.2:0;const x=b.x+(b.layer==='upperfront'?explode*6.2:b.layer==='lowerroof'?-explode*10.3:0);const z=b.z+(b.layer==='lowerfront'?explode*4.2:0);const model=mult(trans(x,b.y+off,z),scale(b.w/2,b.h/2,b.d/2));gl.uniformMatrix4fv(locations.mvp,false,mult(vp,model));gl.uniform3fv(locations.color,b.color);gl.uniform1f(locations.alpha,b.opacity);gl.drawArrays(gl.TRIANGLES,0,36)}
+function render(){resize();const aspect=width/height;gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.enable(gl.CULL_FACE);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);explode+=(targetExplode-explode)*.055;night+=(nightGoal-night)*.045;gl.uniform1f(locations.night,night);
+ if(moving&&!drag){const lerp=(a,b)=>a+(b-a)*.045; yaw=lerp(yaw,dest.yaw);pitch=lerp(pitch,dest.pitch);radius=lerp(radius,dest.radius);center=center.map((x,i)=>lerp(x,dest.center[i]));if(Math.abs(radius-dest.radius)<.014){moving=false;}}else if(!drag&&!facade&&!['lounge','suite'].includes(view)){yaw+=.0014;}const eye=[Math.sin(yaw)*Math.cos(pitch)*radius,Math.sin(pitch)*radius+center[1],Math.cos(yaw)*Math.cos(pitch)*radius];
+ const vp=mult(persp(Math.PI/3.9,aspect,.1,100),lookAt(eye,center));for(const b of opaque)draw(b,vp);gl.depthMask(false);for(const b of glass)draw(b,vp);gl.depthMask(true);requestAnimationFrame(render)}
+canvas.addEventListener('pointerdown',e=>{moving=false;drag=true;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-px)*.008;pitch=Math.max(-.05,Math.min(1.1,pitch+(e.clientY-py)*.005));px=e.clientX;py=e.clientY});canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+canvas.addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(['lounge','suite'].includes(view)?0.65:7,Math.min(36,radius+e.deltaY*.018))},{passive:false});
+function info(msg){status.innerHTML='<span class="dot"></span>'+msg}
+const toggle=(id,handler)=>{const b=document.getElementById(id);b.addEventListener('click',()=>handler(b));};
+toggle('explode',b=>{if(['lounge','suite'].includes(view))setView('facade');targetExplode=targetExplode?0:1;b.setAttribute('aria-pressed',String(!!targetExplode));b.firstChild.textContent=targetExplode?'CLOSE FLOORS ':'OPEN FLOORS ';info(targetExplode?'FLOORS SEPARATED · INSPECT THE INTERIOR':'BUILDING REASSEMBLED · LIVE WEBGL')});
+toggle('facade',b=>{facade=!facade;b.setAttribute('aria-pressed',String(facade));setView(facade?'facade':'aerial');});
+toggle('night',b=>{nightGoal=nightGoal?0:1;b.setAttribute('aria-pressed',String(!!nightGoal));info(nightGoal?'NIGHT PALETTE · REAL-TIME SHADING':'DAYLIGHT PALETTE · REAL-TIME SHADING')});
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+toggle('walk',()=>setView(view==='lounge'?'suite':'lounge'));
+toggle('reset',()=>{targetExplode=0;nightGoal=0;facade=false;setView('aerial');document.getElementById('explode').setAttribute('aria-pressed','false');document.getElementById('explode').firstChild.textContent='OPEN FLOORS ';document.getElementById('night').setAttribute('aria-pressed','false');document.getElementById('facade').setAttribute('aria-pressed','false');document.querySelector('.tour-stops').scrollTo({left:0,behavior:'instant'});info('RESET COMPLETE · DRAG TO ORBIT')});
+requestAnimationFrame(render);
+})();
+</script></body></html>

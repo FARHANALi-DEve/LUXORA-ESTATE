@@ -1,0 +1,31 @@
+{
+  "name": "luxora-estate",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "node --test tests/*.test.js",
+    "test:3d": "node --test tests/3d-interactions.test.js",
+    "db:check": "node --env-file=.env.local scripts/check-mongo.js",
+    "db:seed": "node --env-file=.env.local scripts/seed-mongo.js"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.179.0",
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/drei": "^10.7.0",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.468.0",
+    "mongoose": "^8.18.0",
+    "jose": "^6.0.0",
+    "tailwindcss": "^3.4.17",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "mongodb": "^6.19.0"
+  }
+}

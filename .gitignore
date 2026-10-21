@@ -1,0 +1,12 @@
+node_modules
+.next
+.env*
+!.env.example
+public/uploads/
+data/local-store.json
+*.log
+.DS_Store
+# Local instance data / secrets
+mongodb_data/
+*.pem
+.env.local
